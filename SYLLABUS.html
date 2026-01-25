@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus: MJC 5 & MJC 6</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Merriweather:wght@400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Add required libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        @page {
+            size: A4;
+            margin: 0.35in;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --bg-light: #f8fafc;
+            --border-light: #e2e8f0;
+            --text-dark: #1e293b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #fff;
+            color: #000;
+            font-family: 'EB Garamond', serif;
+            font-size: 12pt;
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 120px;
+            transition: var(--transition);
+        }
+
+        body.mobile-view {
+            font-size: 11pt;
+        }
+
+        body.mobile-view .page-container {
+            max-width: 100%;
+            padding: 12px;
+        }
+
+        body.mobile-view h1 {
+            font-size: 18pt;
+        }
+
+        body.mobile-view .mjc-highlight {
+            font-size: 14pt;
+            padding: 1px 8px;
+        }
+
+        body.mobile-view h2 {
+            font-size: 11pt;
+        }
+
+        body.mobile-view table {
+            font-size: 9pt;
+        }
+
+        body.mobile-view th, 
+        body.mobile-view td {
+            padding: 4px 3px;
+            font-size: 9pt;
+        }
+
+        .pages-container {
+            position: relative;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 7.5in;
+            margin: auto;
+            padding: 8px;
+            page-break-after: always;
+            background: white;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2pt solid #000;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+        }
+
+        h1 { font-size: 21pt; margin: 0; font-weight: 400; }
+
+        .mjc-highlight {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 1px 12px;
+            font-weight: 700;
+            font-size: 17pt;
+            margin-left: 8px;
+            vertical-align: middle;
+            border-radius: 4px;
+        }
+
+        h2 { 
+            font-family: 'Inter', sans-serif;
+            font-size: 13pt; 
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .unit-block { margin-bottom: 10px; }
+
+        .unit-header {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 10pt;
+            display: inline-block;
+            text-transform: uppercase;
+            border-bottom: 1.5pt solid #000;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .content-item { margin: 4px 0; }
+
+        .writer-name {
+            font-family: 'Merriweather', serif;
+            font-weight: 400;
+            font-size: 11pt;
+        }
+
+        .work-title {
+            font-weight: 600;
+            font-style: italic;
+            font-size: 13.5pt;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            margin-bottom: 20px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        th, td {
+            border: 1pt solid #000;
+            padding: 6px 4px;
+            text-align: center;
+            font-size: 10pt;
+        }
+
+        th {
+            font-family: 'Inter', sans-serif;
+            background-color: #f2f2f2;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 8pt;
+            line-height: 1.2;
+            letter-spacing: 0.2px;
+        }
+
+        .total-row {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            background-color: #f2f2f2;
+        }
+
+        /* Download Menu Styles - Modernized */
+        .download-menu {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+            background: linear-gradient(135deg, var(--primary-dark), #1e40af);
+        }
+
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background-color: white;
+            min-width: 260px;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: 12px;
+            overflow: hidden;
+            z-index: 1001;
+            border: 1px solid var(--border-light);
+            padding: 8px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            animation: slideUp 0.2s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            color: var(--text-dark);
+            padding: 14px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 4px;
+            position: relative;
+            gap: 12px;
+        }
+
+        .dropdown-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+            transform: translateX(-2px);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .item-number {
+            font-weight: 700;
+            color: var(--primary-color);
+            width: 20px;
+            font-size: 13px;
+        }
+
+        .separate-download-item {
+            position: relative;
+        }
+
+        .submenu {
+            display: none;
+            background-color: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-top: 4px;
+            margin-left: 12px;
+            padding: 8px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .submenu.show {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .submenu-item {
+            padding: 12px 16px 12px 44px;
+            border-radius: 6px;
+            font-size: 13.5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2px;
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .submenu-item .item-number {
+            font-size: 12px;
+        }
+
+        .arrow-icon {
+            margin-left: auto;
+            font-size: 12px;
+            transition: transform 0.2s;
+            color: var(--secondary-color);
+        }
+
+        .separate-download-item.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-light);
+            margin: 8px 0;
+        }
+
+        /* View Toggle Switch */
+        .view-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 10px 16px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toggle-label i {
+            font-size: 16px;
+        }
+
+        .mobile-label, .desktop-label {
+            transition: color 0.2s;
+        }
+
+        .mobile-label.active, .desktop-label.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.98);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(4px);
+        }
+
+        .loading-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(37, 99, 235, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Status Message */
+        .status-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: var(--text-dark);
+            padding: 14px 24px;
+            border-radius: var(--radius-lg);
+            font-family: 'Inter', sans-serif;
+            display: none;
+            z-index: 3000;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            max-width: 90%;
+        }
+
+        .status-message.show {
+            display: flex;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .status-message.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .status-message.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .status-icon {
+            font-size: 18px;
+        }
+
+        .status-message.success .status-icon {
+            color: var(--success-color);
+        }
+
+        .status-message.error .status-icon {
+            color: #ef4444;
+        }
+
+        @media print {
+            body { -webkit-print-color-adjust: exact; }
+            .download-menu, .view-toggle { display: none; }
+            .loading-overlay { display: none !important; }
+        }
+
+        @media (max-width: 768px) {
+            .view-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .download-menu {
+                bottom: 16px;
+                right: 16px;
+            }
+            
+            .download-btn {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+            
+            .dropdown-content {
+                min-width: 240px;
+                right: -10px;
+            }
+            
+            .status-message {
+                top: 70px;
+                width: calc(100% - 32px);
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Status Message -->
+<div class="status-message" id="statusMessage">
+    <i class="fas fa-check-circle status-icon"></i>
+    <span id="statusText">Download completed successfully!</span>
+</div>
+
+<!-- View Toggle -->
+<div class="view-toggle">
+    <div class="toggle-label">
+        <i class="fas fa-mobile-alt"></i>
+        <span class="mobile-label active">Mobile</span>
+    </div>
+    <label class="switch">
+        <input type="checkbox" id="viewToggle">
+        <span class="slider"></span>
+    </label>
+    <div class="toggle-label">
+        <i class="fas fa-desktop"></i>
+        <span class="desktop-label">Desktop</span>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="pages-container">
+    <div class="page-container" id="page1">
+        <header>
+            <h1>British Literature: 18th Century <span class="mjc-highlight">MJC 5</span></h1>
+        </header>
+
+        <section>
+            <h2>Course Content</h2>
+            <div class="unit-block">
+                <span class="unit-header">Unit I</span>
+                <div class="content-item"><span class="writer-name">Jonathan Swift:</span> <span class="work-title">Gulliver's Travels</span> (Books I & II)</div>
+                <div class="content-item"><span class="writer-name">Olaudah Equiano:</span> <span class="work-title">The Interesting Narrative of the Life of Olaudah Equiano</span></div>
+            </div>
+
+            <div class="unit-block">
+                <span class="unit-header">Unit II</span>
+                <div class="content-item"><span class="writer-name">Samuel Johnson:</span> <span class="work-title">'London'</span></div>
+                <div class="content-item"><span class="writer-name">Thomas Gray:</span> <span class="work-title">'Elegy Written in a Country Churchyard'</span></div>
+            </div>
+
+            <div class="unit-block">
+                <span class="unit-header">Unit III</span>
+                <div class="content-item"><span class="work-title" style="font-style: normal;">History of English Literature (18th Century)</span></div>
+            </div>
+
+            <h2>Marks Division</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">From Unit No.</th>
+                        <th style="width: 25%;">Total no. of <br> questions <br> from the Unit</th>
+                        <th style="width: 20%;">No of questions <br> to be attempted</th>
+                        <th style="width: 15%;">Marks per <br> question</th>
+                        <th style="width: 25%;">Total Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Unit I</td><td>04</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+                    <tr><td>Unit II</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+                    <tr><td>Unit III</td><td>04</td><td>02</td><td>05</td><td>02 × 05 = 10</td></tr>
+                    <tr><td>Units I & II</td><td>10</td><td>05</td><td>02</td><td>05 × 02 = 10</td></tr>
+                    <tr class="total-row">
+                        <td colspan="4" style="text-align: right; padding-right: 15px;">TOTAL MARKS</td>
+                        <td>40</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <div class="page-container" id="page2">
+        <header>
+            <h1>British Romantic Literature <span class="mjc-highlight">MJC 6</span></h1>
+        </header>
+
+        <section>
+            <h2>Course Content</h2>
+            <div class="unit-block">
+                <span class="unit-header">Unit I</span>
+                <div class="content-item"><span class="writer-name">William Blake:</span> <span class="work-title">'Chimney Sweeper' poems</span></div>
+                <div class="content-item"><span class="writer-name">William Wordsworth:</span> <span class="work-title">'Immortality Ode'</span></div>
+                <div class="content-item"><span class="writer-name">Samuel Taylor Coleridge:</span> <span class="work-title">'Christabel'</span></div>
+                <div class="content-item"><span class="writer-name">Lord George Gordon Byron:</span> <span class="work-title">'On the Castle of Chillon'</span></div>
+                <div class="content-item"><span class="writer-name">Percy Bysshe Shelley:</span> <span class="work-title">'Ode to the West Wind'</span></div>
+                <div class="content-item"><span class="writer-name">John Keats:</span> <span class="work-title">'Ode on a Grecian Urn', 'Bright Star'</span></div>
+            </div>
+
+            <div class="unit-block">
+                <span class="unit-header">Unit II</span>
+                <div class="content-item"><span class="writer-name">Thomas Love Peacock:</span> <span class="work-title">Nightmare Abbey</span></div>
+                <div class="content-item"><span class="writer-name">Charles Lamb:</span> <span class="work-title">'Dream Children', 'Old China'</span></div>
+            </div>
+
+            <div class="unit-block">
+                <span class="unit-header">Unit III</span>
+                <div class="content-item"><span class="work-title" style="font-style: normal;">History of English Literature (Romantic Period)</span></div>
+            </div>
+
+            <h2>Marks Division</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">From Unit No.</th>
+                        <th style="width: 25%;">Total no. of <br> questions <br> from the Unit</th>
+                        <th style="width: 20%;">No of questions <br> to be attempted</th>
+                        <th style="width: 15%;">Marks per <br> question</th>
+                        <th style="width: 25%;">Total Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Unit I</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+                    <tr><td>Unit II</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+                    <tr><td>Unit III</td><td>04</td><td>02</td><td>05</td><td>02 × 05 = 10</td></tr>
+                    <tr><td>Units I & II</td><td>10</td><td>05</td><td>02</td><td>05 × 02 = 10</td></tr>
+                    <tr class="total-row">
+                        <td colspan="4" style="text-align: right; padding-right: 15px;">TOTAL MARKS</td>
+                        <td>40</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
+<!-- Download Menu -->
+<div class="download-menu">
+    <button class="download-btn" id="downloadBtn">
+        <i class="fas fa-download"></i>
+        <span>Download Options</span>
+    </button>
+    <div class="dropdown-content" id="dropdownContent">
+        <div class="dropdown-item" id="longScreenshot">
+            <span class="item-number">1</span>
+            <i class="fas fa-image"></i>
+            <span>Full Page Screenshot (2K PNG)</span>
+        </div>
+        
+        <div class="dropdown-item separate-download-item" id="separateDownloadBtn">
+            <span class="item-number">2</span>
+            <i class="fas fa-copy"></i>
+            <span>Separate Syllabus Download</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+        </div>
+        
+        <div class="submenu" id="separateSubmenu">
+            <div class="submenu-item" id="mjc5Screenshot">
+                <span class="item-number">a</span>
+                <span>MJC 5 Syllabus (2K PNG)</span>
+            </div>
+            <div class="submenu-item" id="mjc6Screenshot">
+                <span class="item-number">b</span>
+                <span>MJC 6 Syllabus (2K PNG)</span>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="dropdown-item" id="downloadPdf">
+            <span class="item-number">3</span>
+            <i class="fas fa-file-pdf"></i>
+            <span>PDF Document (Perfect Format)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p class="loading-text" id="loadingText">Preparing download...</p>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+</div>
+
+<script>
+// Initialize jsPDF
+const { jsPDF } = window.jspdf;
+
+// DOM Elements
+const downloadBtn = document.getElementById('downloadBtn');
+const dropdownContent = document.getElementById('dropdownContent');
+const longScreenshotBtn = document.getElementById('longScreenshot');
+const separateDownloadBtn = document.getElementById('separateDownloadBtn');
+const separateSubmenu = document.getElementById('separateSubmenu');
+const mjc5ScreenshotBtn = document.getElementById('mjc5Screenshot');
+const mjc6ScreenshotBtn = document.getElementById('mjc6Screenshot');
+const downloadPdfBtn = document.getElementById('downloadPdf');
+const loadingOverlay = document.getElementById('loadingOverlay');
+const loadingText = document.getElementById('loadingText');
+const statusMessage = document.getElementById('statusMessage');
+const statusText = document.getElementById('statusText');
+const viewToggle = document.getElementById('viewToggle');
+const mobileLabel = document.querySelector('.mobile-label');
+const desktopLabel = document.querySelector('.desktop-label');
+const progressFill = document.getElementById('progressFill');
+const body = document.body;
+
+// Show status message
+function showStatus(message, isError = false) {
+    statusText.textContent = message;
+    statusMessage.className = `status-message show ${isError ? 'error' : 'success'}`;
+    statusMessage.querySelector('.status-icon').className = `fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'} status-icon`;
+    
+    setTimeout(() => {
+        statusMessage.classList.remove('show');
+    }, 3000);
+}
+
+// Update progress bar
+function updateProgress(percentage) {
+    progressFill.style.width = `${percentage}%`;
+}
+
+// Toggle dropdown
+downloadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownContent.classList.toggle('show');
+    if (separateSubmenu.classList.contains('show')) {
+        separateSubmenu.classList.remove('show');
+        separateDownloadBtn.classList.remove('active');
+    }
+});
+
+// Toggle submenu for separate download
+separateDownloadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    separateSubmenu.classList.toggle('show');
+    separateDownloadBtn.classList.toggle('active');
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!downloadBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+        dropdownContent.classList.remove('show');
+        separateSubmenu.classList.remove('show');
+        separateDownloadBtn.classList.remove('active');
+    }
+});
+
+// View toggle functionality
+viewToggle.addEventListener('change', () => {
+    if (viewToggle.checked) {
+        body.classList.remove('mobile-view');
+        mobileLabel.classList.remove('active');
+        desktopLabel.classList.add('active');
+    } else {
+        body.classList.add('mobile-view');
+        mobileLabel.classList.add('active');
+        desktopLabel.classList.remove('active');
+    }
+});
+
+// Initialize view toggle
+if (window.innerWidth < 768) {
+    viewToggle.checked = false;
+    body.classList.add('mobile-view');
+    mobileLabel.classList.add('active');
+    desktopLabel.classList.remove('active');
+} else {
+    viewToggle.checked = true;
+    body.classList.remove('mobile-view');
+    mobileLabel.classList.remove('active');
+    desktopLabel.classList.add('active');
+}
+
+// Show loading overlay
+function showLoading(text = 'Preparing download...') {
+    loadingText.textContent = text;
+    progressFill.style.width = '0%';
+    loadingOverlay.classList.add('show');
+}
+
+// Hide loading overlay
+function hideLoading() {
+    loadingOverlay.classList.remove('show');
+}
+
+// Long screenshot - Capture both pages
+longScreenshotBtn.addEventListener('click', async () => {
+    try {
+        showLoading('Creating full page screenshot...');
+        updateProgress(30);
+        dropdownContent.classList.remove('show');
+        
+        // Store current view state
+        const wasMobileView = body.classList.contains('mobile-view');
+        
+        // Temporarily switch to desktop view for better screenshot quality
+        if (wasMobileView) {
+            body.classList.remove('mobile-view');
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        // Create a temporary container for capturing
+        const tempContainer = document.createElement('div');
+        tempContainer.style.cssText = `
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: ${document.querySelector('.page-container').offsetWidth}px;
+            background: white;
+            padding: 0;
+            margin: 0;
+        `;
+        
+        // Clone both pages
+        const page1Clone = document.getElementById('page1').cloneNode(true);
+        const page2Clone = document.getElementById('page2').cloneNode(true);
+        
+        // Remove any interactive elements
+        [page1Clone, page2Clone].forEach(page => {
+            const viewToggle = page.querySelector('.view-toggle');
+            if (viewToggle) viewToggle.remove();
+        });
+        
+        tempContainer.appendChild(page1Clone);
+        tempContainer.appendChild(page2Clone);
+        document.body.appendChild(tempContainer);
+        
+        updateProgress(60);
+        
+        // Capture with high quality
+        const canvas = await html2canvas(tempContainer, {
+            scale: 4, // 4x for 2K quality
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            width: tempContainer.offsetWidth,
+            height: tempContainer.scrollHeight,
+            windowWidth: tempContainer.scrollWidth,
+            windowHeight: tempContainer.scrollHeight
+        });
+        
+        updateProgress(90);
+        
+        // Convert to PNG and download
+        const imgData = canvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        link.download = 'Syllabus_MJC5_MJC6_Full_Page.png';
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Cleanup
+        document.body.removeChild(tempContainer);
+        
+        // Restore original view state
+        if (wasMobileView) {
+            body.classList.add('mobile-view');
+        }
+        
+        updateProgress(100);
+        setTimeout(() => {
+            hideLoading();
+            showStatus('Full page screenshot downloaded successfully!');
+        }, 300);
+    } catch (error) {
+        console.error('Error creating screenshot:', error);
+        hideLoading();
+        showStatus('Error creating screenshot. Please try again.', true);
+    }
+});
+
+// MJC 5 Screenshot
+mjc5ScreenshotBtn.addEventListener('click', async () => {
+    try {
+        showLoading('Creating MJC 5 screenshot...');
+        updateProgress(30);
+        dropdownContent.classList.remove('show');
+        separateSubmenu.classList.remove('show');
+        separateDownloadBtn.classList.remove('active');
+        
+        // Store current view state
+        const wasMobileView = body.classList.contains('mobile-view');
+        
+        // Temporarily switch to desktop view for better screenshot quality
+        if (wasMobileView) {
+            body.classList.remove('mobile-view');
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        const page = document.getElementById('page1');
+        
+        // Remove view toggle from page clone
+        const pageClone = page.cloneNode(true);
+        const viewToggleClone = pageClone.querySelector('.view-toggle');
+        if (viewToggleClone) viewToggleClone.remove();
+        
+        const tempContainer = document.createElement('div');
+        tempContainer.style.cssText = `
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: ${page.offsetWidth}px;
+            background: white;
+        `;
+        tempContainer.appendChild(pageClone);
+        document.body.appendChild(tempContainer);
+        
+        updateProgress(60);
+        
+        const canvas = await html2canvas(tempContainer, {
+            scale: 4, // 4x for 2K quality
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            width: tempContainer.offsetWidth,
+            height: tempContainer.scrollHeight,
+            windowWidth: tempContainer.scrollWidth,
+            windowHeight: tempContainer.scrollHeight
+        });
+        
+        updateProgress(90);
+        
+        const imgData = canvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        link.download = 'Syllabus_MJC5.png';
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        document.body.removeChild(tempContainer);
+        
+        // Restore original view state
+        if (wasMobileView) {
+            body.classList.add('mobile-view');
+        }
+        
+        updateProgress(100);
+        setTimeout(() => {
+            hideLoading();
+            showStatus('MJC 5 screenshot downloaded successfully!');
+        }, 300);
+    } catch (error) {
+        console.error('Error creating MJC 5 screenshot:', error);
+        hideLoading();
+        showStatus('Error creating MJC 5 screenshot. Please try again.', true);
+    }
+});
+
+// MJC 6 Screenshot
+mjc6ScreenshotBtn.addEventListener('click', async () => {
+    try {
+        showLoading('Creating MJC 6 screenshot...');
+        updateProgress(30);
+        dropdownContent.classList.remove('show');
+        separateSubmenu.classList.remove('show');
+        separateDownloadBtn.classList.remove('active');
+        
+        // Store current view state
+        const wasMobileView = body.classList.contains('mobile-view');
+        
+        // Temporarily switch to desktop view for better screenshot quality
+        if (wasMobileView) {
+            body.classList.remove('mobile-view');
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        const page = document.getElementById('page2');
+        
+        // Remove view toggle from page clone
+        const pageClone = page.cloneNode(true);
+        const viewToggleClone = pageClone.querySelector('.view-toggle');
+        if (viewToggleClone) viewToggleClone.remove();
+        
+        const tempContainer = document.createElement('div');
+        tempContainer.style.cssText = `
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: ${page.offsetWidth}px;
+            background: white;
+        `;
+        tempContainer.appendChild(pageClone);
+        document.body.appendChild(tempContainer);
+        
+        updateProgress(60);
+        
+        const canvas = await html2canvas(tempContainer, {
+            scale: 4, // 4x for 2K quality
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            width: tempContainer.offsetWidth,
+            height: tempContainer.scrollHeight,
+            windowWidth: tempContainer.scrollWidth,
+            windowHeight: tempContainer.scrollHeight
+        });
+        
+        updateProgress(90);
+        
+        const imgData = canvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        link.download = 'Syllabus_MJC6.png';
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        document.body.removeChild(tempContainer);
+        
+        // Restore original view state
+        if (wasMobileView) {
+            body.classList.add('mobile-view');
+        }
+        
+        updateProgress(100);
+        setTimeout(() => {
+            hideLoading();
+            showStatus('MJC 6 screenshot downloaded successfully!');
+        }, 300);
+    } catch (error) {
+        console.error('Error creating MJC 6 screenshot:', error);
+        hideLoading();
+        showStatus('Error creating MJC 6 screenshot. Please try again.', true);
+    }
+});
+
+// PDF Download function - Perfect letter size formatting
+downloadPdfBtn.addEventListener('click', async () => {
+    try {
+        showLoading('Creating perfect PDF document...');
+        updateProgress(20);
+        dropdownContent.classList.remove('show');
+        
+        // Store current view state
+        const wasMobileView = body.classList.contains('mobile-view');
+        
+        // Temporarily switch to desktop view for better PDF quality
+        if (wasMobileView) {
+            body.classList.remove('mobile-view');
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        updateProgress(40);
+        
+        // Create PDF in letter size (8.5 x 11 inches)
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'letter',
+            compress: true
+        });
+        
+        // Set PDF properties
+        pdf.setProperties({
+            title: 'Syllabus - MJC 5 & MJC 6',
+            subject: 'British Literature Syllabus',
+            author: 'University Department',
+            creator: 'Academic Portal',
+            keywords: 'syllabus, literature, MJC5, MJC6, British literature'
+        });
+        
+        updateProgress(60);
+        
+        // Helper function to add a page to PDF
+        async function addPageToPDF(pdf, element, pageNumber) {
+            return new Promise((resolve) => {
+                html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    allowTaint: true,
+                    width: element.offsetWidth,
+                    height: element.scrollHeight,
+                    windowWidth: element.scrollWidth,
+                    windowHeight: element.scrollHeight,
+                    onclone: function(clonedDoc) {
+                        // Ensure fonts are loaded in the cloned document
+                        const style = clonedDoc.createElement('style');
+                        style.textContent = `
+                            @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Merriweather:wght@400&family=Inter:wght@400;500;600;700&display=swap');
+                            body { font-family: 'EB Garamond', serif; }
+                        `;
+                        clonedDoc.head.appendChild(style);
+                    }
+                }).then(async (canvas) => {
+                    // Calculate PDF dimensions
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    
+                    // Calculate margins (0.5 inch = 12.7mm on each side)
+                    const margin = 12.7;
+                    const contentWidth = pdfWidth - (2 * margin);
+                    
+                    // Calculate aspect ratio
+                    const imgWidth = contentWidth;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Check if content fits on one page
+                    if (imgHeight <= (pdfHeight - (2 * margin))) {
+                        // Center vertically
+                        const yPosition = margin + ((pdfHeight - (2 * margin) - imgHeight) / 2);
+                        
+                        // Add image to PDF
+                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                        pdf.addImage(imgData, 'JPEG', margin, yPosition, imgWidth, imgHeight);
+                    } else {
+                        // Split content into multiple pages
+                        const pagesNeeded = Math.ceil(imgHeight / (pdfHeight - (2 * margin)));
+                        let currentY = margin;
+                        
+                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                        
+                        for (let i = 0; i < pagesNeeded; i++) {
+                            if (i > 0) {
+                                pdf.addPage();
+                            }
+                            
+                            const sectionHeight = Math.min(imgHeight - (currentY - margin), pdfHeight - (2 * margin));
+                            
+                            // Create a temporary canvas for this section
+                            const tempCanvas = document.createElement('canvas');
+                            const ctx = tempCanvas.getContext('2d');
+                            tempCanvas.width = canvas.width;
+                            tempCanvas.height = (sectionHeight * canvas.height) / imgHeight;
+                            
+                            // Draw the section
+                            ctx.drawImage(
+                                canvas,
+                                0, 
+                                ((currentY - margin) * canvas.height) / imgHeight,
+                                canvas.width,
+                                tempCanvas.height,
+                                0, 0,
+                                tempCanvas.width,
+                                tempCanvas.height
+                            );
+                            
+                            const sectionData = tempCanvas.toDataURL('image/jpeg', 0.95);
+                            pdf.addImage(sectionData, 'JPEG', margin, margin, imgWidth, sectionHeight);
+                            
+                            currentY += sectionHeight;
+                        }
+                    }
+                    
+                    resolve();
+                });
+            });
+        }
+        
+        updateProgress(70);
+        
+        // Add first page
+        await addPageToPDF(pdf, document.getElementById('page1'), 1);
+        
+        updateProgress(80);
+        
+        // Add second page on new PDF page
+        pdf.addPage();
+        await addPageToPDF(pdf, document.getElementById('page2'), 2);
+        
+        updateProgress(90);
+        
+        // Add page numbers
+        const totalPages = pdf.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(10);
+            pdf.setTextColor(128, 128, 128);
+            pdf.text(
+                `Page ${i} of ${totalPages}`,
+                pdf.internal.pageSize.getWidth() / 2,
+                pdf.internal.pageSize.getHeight() - 10,
+                { align: 'center' }
+            );
+        }
+        
+        updateProgress(95);
+        
+        // Save PDF
+        pdf.save('Syllabus_MJC5_MJC6_LetterSize.pdf');
+        
+        // Restore original view state
+        if (wasMobileView) {
+            body.classList.add('mobile-view');
+        }
+        
+        updateProgress(100);
+        setTimeout(() => {
+            hideLoading();
+            showStatus('PDF downloaded successfully with perfect formatting!');
+        }, 300);
+    } catch (error) {
+        console.error('Error creating PDF:', error);
+        hideLoading();
+        showStatus('Error creating PDF. Please try again.', true);
+    }
+});
+
+// Prevent right-click on download menu
+document.querySelector('.download-menu').addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+});
+
+// Load fonts before capturing
+document.fonts.ready.then(() => {
+    console.log('All fonts loaded');
+});
+
+// Handle window resize for view toggle
+window.addEventListener('resize', () => {
+    if (window.innerWidth < 768 && !viewToggle.checked) {
+        body.classList.add('mobile-view');
+        mobileLabel.classList.add('active');
+        desktopLabel.classList.remove('active');
+    } else if (window.innerWidth >= 768 && viewToggle.checked) {
+        body.classList.remove('mobile-view');
+        mobileLabel.classList.remove('active');
+        desktopLabel.classList.add('active');
+    }
+});
+</script>
+
+</body>
+</html>
