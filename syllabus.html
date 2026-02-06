@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syllabus: MJC 5 & MJC 6</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Merriweather:wght@400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== Base Styles ===== */
+body {
+    margin: 0;
+    font-family: 'EB Garamond', serif;
+    background-color: #000; 
+    color: #fff;
+    line-height: 1.65;
+    scroll-behavior: smooth;
+    transition: all 0.4s ease;
+}
+
+/* ===== Light Mode ===== */
+body.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+body.light-mode .page-container {
+    background-color: #fff;
+    color: #000;
+    box-shadow: none;
+}
+body.light-mode header {
+    border-bottom: 3px solid #000;
+}
+body.light-mode h1, body.light-mode .mjc-highlight, body.light-mode h2, body.light-mode .unit-header,
+body.light-mode .writer-name, body.light-mode .work-title, body.light-mode th, body.light-mode td,
+body.light-mode .total-row {
+    color: #000 !important;
+    background-color: transparent !important;
+    border-color: #000 !important;
+}
+body.light-mode .top-buttons button, body.light-mode .up-btn {
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
+}
+body.light-mode .top-buttons button:hover, body.light-mode .up-btn:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* ===== Floating Top Buttons ===== */
+.top-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.top-buttons button {
+    background-color: #111;
+    color: #fff;
+    border: 2px solid #0ff;
+    border-radius: 50px;
+    padding: 8px 14px;
+    font-size: 12pt;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.top-buttons button:hover {
+    background-color: #0ff;
+    color: #000;
+    border-color: #ff0;
+}
+
+/* ===== Page Container ===== */
+.page-container {
+    max-width: 900px;
+    margin: 80px auto 40px auto; 
+    background: #111; 
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+header {
+    text-align: center;
+    border-bottom: 3px solid #ff0; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+h1 { font-size: 24pt; font-weight: 400; color: #0ff; }
+.mjc-highlight { background-color: #ff0; color: #000; padding: 3px 16px; font-weight: 700; font-size: 18pt; margin-left: 10px; border-radius: 5px; }
+h2 { font-family: 'Inter', sans-serif; font-size: 15pt; font-weight: 700; text-transform: uppercase; margin: 25px 0 15px 0; color: #0f0; }
+.unit-block { margin-bottom: 18px; }
+.unit-header { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 12pt; border-bottom: 2px solid #0ff; margin-bottom: 6px; display: inline-block; color: #ff0; }
+.content-item { margin: 7px 0; padding-left: 14px; }
+.writer-name { font-family: 'Merriweather', serif; font-weight: 700; font-size: 12pt; color: #0ff; }
+.work-title { font-weight: 600; font-style: italic; font-size: 13pt; color: #ff0; }
+table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+th, td { border: 1px solid #fff; padding: 8px 6px; text-align: center; }
+th { font-family: 'Inter', sans-serif; background-color: #222; font-weight: 700; text-transform: uppercase; color: #0f0; font-size: 10pt; }
+.total-row { font-weight: 700; background-color: #333; color: #ff0; }
+
+/* Up Button */
+.up-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+    background-color: #111;
+    color: #ff0;
+    border: 2px solid #0ff;
+    border-radius: 50px;
+    padding: 14px 20px;
+    font-size: 16pt;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 1000;
+    transition: 0.3s;
+}
+.up-btn:hover { background-color: #0ff; color: #000; border-color: #ff0; }
+
+/* ===== Toggle Switch ===== */
+.toggle-switch {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 50px;
+    height: 26px;
+    background: #111;
+    border: 2px solid #0ff;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    transition: background 0.3s;
+}
+.toggle-switch .switch-handle {
+    width: 22px;
+    height: 22px;
+    background: #0ff;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.toggle-switch.on { background: #0ff; }
+.toggle-switch.on .switch-handle { transform: translateX(24px); background: #111; }
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 768px) {
+    .page-container { margin: 100px 10px 40px 10px; padding: 18px; }
+    h1 { font-size: 20pt; }
+    .mjc-highlight { font-size: 16pt; padding: 2px 12px; }
+    h2 { font-size: 13pt; }
+    .unit-header { font-size: 11pt; }
+    .writer-name { font-size: 11pt; }
+    .work-title { font-size: 12pt; }
+    table th, table td { font-size: 9pt; padding: 6px 4px; }
+    .top-buttons button { font-size: 12pt; padding: 8px 12px; }
+    .up-btn { font-size: 14pt; padding: 10px 16px; }
+    .toggle-switch { width: 45px; height: 24px; }
+    .toggle-switch .switch-handle { width: 20px; height: 20px; }
+}
+
+@media screen and (max-width: 480px) {
+    .page-container { margin: 110px 5px 30px 5px; padding: 15px; }
+    h1 { font-size: 18pt; }
+    .mjc-highlight { font-size: 14pt; padding: 2px 10px; }
+    h2 { font-size: 12pt; }
+    .unit-header { font-size: 10pt; }
+    .writer-name { font-size: 10pt; }
+    .work-title { font-size: 11pt; }
+    table th, table td { font-size: 8pt; padding: 5px 3px; }
+    .top-buttons { top: 5px; right: 5px; gap: 6px; }
+    .top-buttons button { font-size: 11pt; padding: 6px 10px; }
+    .up-btn { font-size: 12pt; padding: 8px 12px; }
+    .toggle-switch { width: 40px; height: 22px; }
+    .toggle-switch .switch-handle { width: 18px; height: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Toggle Switch -->
+<div class="toggle-switch" id="toggleSwitch">
+    <div class="switch-handle"></div>
+</div>
+
+<!-- Floating Top Buttons -->
+<div class="top-buttons">
+    <button onclick="document.getElementById('mjc5').scrollIntoView({behavior:'smooth'});">MJC 5</button>
+    <button onclick="document.getElementById('mjc6').scrollIntoView({behavior:'smooth'});">MJC 6</button>
+</div>
+
+<!-- ===== MJC5 Section ===== -->
+<div class="page-container" id="mjc5">
+<header>
+<h1>British Literature: 18th Century <span class="mjc-highlight">MJC 5</span></h1>
+</header>
+
+<h2>Course Content</h2>
+<div class="unit-block">
+<span class="unit-header">Unit I</span>
+<div class="content-item"><span class="writer-name">Jonathan Swift:</span> <span class="work-title">Gulliver’s Travels</span> (Books I & II)</div>
+<div class="content-item"><span class="writer-name">Olaudah Equiano:</span> <span class="work-title">The Interesting Narrative of the Life of Olaudah Equiano</span></div>
+</div>
+
+<div class="unit-block">
+<span class="unit-header">Unit II</span>
+<div class="content-item"><span class="writer-name">Samuel Johnson:</span> <span class="work-title">‘London’</span></div>
+<div class="content-item"><span class="writer-name">Thomas Gray:</span> <span class="work-title">‘Elegy Written in a Country Churchyard’</span></div>
+</div>
+
+<div class="unit-block">
+<span class="unit-header">Unit III</span>
+<div class="content-item"><span class="work-title" style="font-style: normal;">History of English Literature (18th Century)</span></div>
+</div>
+
+<h2>Marks Division</h2>
+<table>
+<thead>
+<tr>
+<th>From Unit No.</th>
+<th>Total no. of questions</th>
+<th>No of questions to be attempted</th>
+<th>Marks per question</th>
+<th>Total Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Unit I</td><td>04</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+<tr><td>Unit II</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+<tr><td>Unit III</td><td>04</td><td>02</td><td>05</td><td>02 × 05 = 10</td></tr>
+<tr><td>Units I & II</td><td>10</td><td>05</td><td>02</td><td>05 × 02 = 10</td></tr>
+<tr class="total-row"><td colspan="4" style="text-align: right; padding-right: 10px;">TOTAL MARKS</td><td>40</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== MJC6 Section ===== -->
+<div class="page-container" id="mjc6">
+<header>
+<h1>British Romantic Literature 
+  <br>
+  <span class="mjc-highlight">MJC 6</span></h1>
+</header>
+
+<h2>Course Content</h2>
+<div class="unit-block">
+<span class="unit-header">Unit I</span>
+<div class="content-item"><span class="writer-name">William Blake:</span> <span class="work-title">‘Chimney Sweeper’ poems</span></div>
+<div class="content-item"><span class="writer-name">William Wordsworth:</span> <span class="work-title">‘Immortality Ode’</span></div>
+<div class="content-item"><span class="writer-name">Samuel Taylor Coleridge:</span> <span class="work-title">‘Christabel’</span></div>
+<div class="content-item"><span class="writer-name">Lord Byron:</span> <span class="work-title">‘On the Castle of Chillon’</span></div>
+<div class="content-item"><span class="writer-name">Percy Bysshe Shelley:</span> <span class="work-title">‘Ode to the West Wind’</span></div>
+<div class="content-item"><span class="writer-name">John Keats:</span> <span class="work-title">‘Ode on a Grecian Urn’, ‘Bright Star’</span></div>
+</div>
+
+<div class="unit-block">
+<span class="unit-header">Unit II</span>
+<div class="content-item"><span class="writer-name">Thomas Love Peacock:</span> <span class="work-title">Nightmare Abbey</span></div>
+<div class="content-item"><span class="writer-name">Charles Lamb:</span> <span class="work-title">‘Dream Children’, ‘Old China’</span></div>
+</div>
+
+<div class="unit-block">
+<span class="unit-header">Unit III</span>
+<div class="content-item"><span class="work-title" style="font-style: normal;">History of English Literature (Romantic Period)</span></div>
+</div>
+
+<h2>Marks Division</h2>
+<table>
+<thead>
+<tr>
+<th>From Unit No.</th>
+<th>Total no. of questions</th>
+<th>No of questions to be attempted</th>
+<th>Marks per question</th>
+<th>Total Marks</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Unit I</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+<tr><td>Unit II</td><td>02</td><td>01</td><td>10</td><td>01 × 10 = 10</td></tr>
+<tr><td>Unit III</td><td>04</td><td>02</td><td>05</td><td>02 × 05 = 10</td></tr>
+<tr><td>Units I & II</td><td>10</td><td>05</td><td>02</td><td>05 × 02 = 10</td></tr>
+<tr class="total-row"><td colspan="4" style="text-align: right; padding-right: 10px;">TOTAL MARKS</td><td>40</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Up Button -->
+<button class="up-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+<script>
+const toggleSwitch = document.getElementById('toggleSwitch');
+
+// Load saved theme
+if(localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+    toggleSwitch.classList.add('on');
+}
+
+toggleSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    toggleSwitch.classList.toggle('on');
+    if(document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark');
+    }
+});
+</script>
+
+</body>
+</html>
